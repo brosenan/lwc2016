@@ -19,5 +19,6 @@ isPure('/imperative':call(ProcName,Args)):-'/imperative':isProc(ProcName,Formal,
 '/bootstrap':defAtom(pure::'/bootstrap':marker).
 '/util':behavior(pure::'/bootstrap':marker,!'should be given for all pure procedure definitions','/bootstrap':check(cpi:path(!'file.ced',[1]),'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],'/imperative':assign(Y,'/imperative':var(X),'/bootstrap':number))::'/bootstrap':statement,[],'/bootstrap':marker(_,pure))).
 '/util':behavior(pure::'/bootstrap':marker,!'should be not be given for impure procedure definitions',\+'/bootstrap':check(cpi:path(!'file.ced',[1]),'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],'/imperative':print('/imperative':const(3),'/bootstrap':number))::'/bootstrap':statement,[],'/bootstrap':marker(_,pure))).
-'/bootstrap':check(Path,'/imperative':procedure(_,_,Body)::'/bootstrap':statement,VNs,'/bootstrap':marker(Path,pure)):-builtin:timeout(isPure(Body),10).
+'/util':behavior(pure::'/bootstrap':marker,!'should be not be given for blank procedures',\+'/bootstrap':check(cpi:path(!'file.ced',[1]),'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],_)::'/bootstrap':statement,[],'/bootstrap':marker(_,pure))).
+'/bootstrap':check(Path,'/imperative':procedure(_,_,Body)::'/bootstrap':statement,VNs,'/bootstrap':marker(Path,pure)):- \+builtin:var(Body::'/imperative':command),builtin:timeout(isPure(Body),10).
 '/bootstrap':markerVis(pure,Vis,'/bootstrap':horiz(['/bootstrap':label(!pure),Vis])).
