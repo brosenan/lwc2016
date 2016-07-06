@@ -1,0 +1,23 @@
+'/bootstrap':signature(isPure(Cmd)::'/bootstrap':pred,[Cmd::'/imperative':command]).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is true for assignments',isPure('/imperative':assign(_,_,_))).
+isPure('/imperative':assign(_,_,_)):-builtin:true.
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is true for if given the "then" block is pure',isPure('/imperative':if('/imperative':const('/imperative':true),'/imperative':assign(I,'/imperative':const(2),'/bootstrap':number)))).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is not true for if when the "then" block is impure',\+isPure('/imperative':if('/imperative':const('/imperative':true),'/imperative':print('/imperative':const(!hello),'/bootstrap':string)))).
+isPure('/imperative':if(Cond,Then)):-isPure(Then).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is true for blocks, if all elements are pure',isPure('/imperative':block(['/imperative':assign(I,'/imperative':const(0),'/bootstrap':number),'/imperative':if('/imperative':const('/imperative':false),'/imperative':assign(I,'/imperative':const(2),'/bootstrap':number))]))).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is not true for blocks where at least one element is not pure',\+isPure('/imperative':block(['/imperative':assign(I,'/imperative':const(0),'/bootstrap':number),'/imperative':if('/imperative':const('/imperative':false),'/imperative':print('/imperative':const(4),'/bootstrap':number))]))).
+isPure('/imperative':block([])):-builtin:true.
+isPure('/imperative':block([First|Rest])):-isPure(First),isPure('/imperative':block(Rest)).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is true for a while, if the body is pure',isPure('/imperative':while('/imperative':const('/imperative':true),'/imperative':assign(_,_,_)))).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is not true for a while, if the body is not pure',\+isPure('/imperative':while('/imperative':const('/imperative':true),'/imperative':print('/imperative':const(4),'/bootstrap':number)))).
+isPure('/imperative':while(_,Body)):-isPure(Body).
+'/bootstrap':defAtom(barProc::'/imperative':procName).
+'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],'/imperative':assign(Y,'/imperative':var(X),'/bootstrap':number)).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is true for a procedure call, if the procedure body is pure',isPure('/imperative':call(barProc,['/imperative':typedExpr('/imperative':const(3),'/bootstrap':number)]))).
+'/util':behavior(isPure(Cmd)::'/bootstrap':pred,!'is not true for a procedure call, if the procedure body is not pure',\+isPure('/imperative':call('/imperative':fooProc,['/imperative':typedExpr('/imperative':const(3),'/bootstrap':number),'/imperative':typedExpr('/imperative':const(!hello),'/bootstrap':string)]))).
+isPure('/imperative':call(ProcName,Args)):-'/imperative':isProc(ProcName,Formal,Body),isPure(Body).
+'/bootstrap':defAtom(pure::'/bootstrap':marker).
+'/util':behavior(pure::'/bootstrap':marker,!'should be given for all pure procedure definitions','/bootstrap':check(cpi:path(!'file.ced',[1]),'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],'/imperative':assign(Y,'/imperative':var(X),'/bootstrap':number))::'/bootstrap':statement,[],'/bootstrap':marker(_,pure))).
+'/util':behavior(pure::'/bootstrap':marker,!'should be not be given for impure procedure definitions',\+'/bootstrap':check(cpi:path(!'file.ced',[1]),'/imperative':procedure(barProc,['/imperative':typedVar(X,'/bootstrap':number)],'/imperative':print('/imperative':const(3),'/bootstrap':number))::'/bootstrap':statement,[],'/bootstrap':marker(_,pure))).
+'/bootstrap':check(Path,'/imperative':procedure(_,_,Body)::'/bootstrap':statement,VNs,'/bootstrap':marker(Path,pure)):-builtin:timeout(isPure(Body),10).
+'/bootstrap':markerVis(pure,Vis,'/bootstrap':horiz(['/bootstrap':label(!pure),Vis])).
