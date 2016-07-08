@@ -1,0 +1,2 @@
+'/bootstrap':defAtom('holland-small.png'::'/bootstrap':image).
+'/bootstrap':defineImage('holland-small.png',!'https://cdn4.iconfinder.com/data/icons/home-sweet-home-2/120/holland3-512.png').
