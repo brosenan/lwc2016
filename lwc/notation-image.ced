@@ -1,2 +1,14 @@
 '/bootstrap':defAtom('holland-small.png'::'/bootstrap':image).
-'/bootstrap':defineImage('holland-small.png',!'https://cdn4.iconfinder.com/data/icons/home-sweet-home-2/120/holland3-512.png').
+'/bootstrap':defineImage('holland-small.png',!'https://raw.githubusercontent.com/brosenan/lwc2016/master/lwc/holland-small.png').
+'/bootstrap':defAtom(dutchFlag::'/bootstrap':image).
+'/bootstrap':defineImage(dutchFlag,!'http://www.dkars.nl/uploads/images/MleCMS/Dutch-Flag_tiny.jpg').
+'/bootstrap':defAtom(holland::'/imperative':procName).
+'/bootstrap':projection(holland::'/imperative':procName,'/bootstrap':image(dutchFlag)).
+'/bootstrap':defAtom(windmill::'/bootstrap':image).
+'/bootstrap':defineImage(windmill,!'https://raw.githubusercontent.com/brosenan/lwc2016/master/windmill-small.png').
+'/bootstrap':defAtom(building::'/imperative':variable('/bootstrap':string)).
+'/bootstrap':projection(building::'/imperative':variable('/bootstrap':string),'/bootstrap':image('holland-small.png')).
+'/bootstrap':defAtom(widmillVar::'/imperative':variable('/bootstrap':string)).
+'/bootstrap':projection(widmillVar::'/imperative':variable('/bootstrap':string),'/bootstrap':image(windmill)).
+'/imperative':procedure(holland,['/imperative':typedVar(building,'/bootstrap':string),'/imperative':typedVar(widmillVar,'/bootstrap':string)],'/imperative':print('/imperative':op('/imperative':var(building),'/Functional':concat,'/imperative':op('/imperative':var(widmillVar),'/Functional':concat,'/imperative':var(building))),'/bootstrap':string)).
+'/bootstrap':unitTest('/imperative':execute('/imperative':call(holland,['/imperative':typedExpr('/imperative':const(!foo),'/bootstrap':string),'/imperative':typedExpr('/imperative':const(!bar),'/bootstrap':string)]),[],[!foobarfoo::'/bootstrap':string])).
