@@ -1,0 +1,4 @@
+'/bootstrap':defAtom(extComposition::'/imperative':procName).
+'/imperative':procedure(extComposition,['/imperative':typedVar(X,'/bootstrap':number)],unless('/imperative':eq(sum(I,'/imperative':const(1),'/imperative':var(X),div('/imperative':op('/imperative':var(I),'/Functional':times,'/imperative':const(2)),'/imperative':var(X))),'/imperative':const(2),'/bootstrap':number),'/imperative':print('/imperative':const(!'not one'),'/bootstrap':string))).
+'/bootstrap':unitTest('/imperative':execute('/imperative':call(extComposition,['/imperative':typedExpr('/imperative':const(3),'/bootstrap':number)]),[],[!'not one'::'/bootstrap':string])).
+'/bootstrap':unitTest('/imperative':execute('/imperative':call(extComposition,['/imperative':typedExpr('/imperative':const(1),'/bootstrap':number)]),[],[])).
