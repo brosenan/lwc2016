@@ -6,8 +6,8 @@
 '/bootstrap':deprecated(for(Given,Goal,Cmd)::'/imperative':command).
 '/bootstrap':deprecationReplacement(for(Given,Goal,Cmd),'/imperative':command,'for2'(Given,Cmd,Goal)).
 '/util':behavior(for(Given,Goal,Cmd)::'/imperative':command,!'should execute Cmd if Goal holds', ('/imperative':execute(for([],builtin:true,'/imperative':print('/imperative':const(1),'/bootstrap':number)),[],Out),'/util':assertEqual(Out,[1::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).
-'/util':behavior(for(Given,Goal,Cmd)::'/imperative':command,!'should not execute anything if Goal does not hold', ('/imperative':execute(for([],builtin:fail,'/imperative':print('/imperative':const(1),'/bootstrap':number)),[],Out),'/util':assertEqual(Out,[],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/util':behavior('for2'(Given,Cmd,Goal)::'/imperative':command,!'should execute Cmd if Goal holds', ('/imperative':execute('for2'([],'/imperative':print('/imperative':const(1),'/bootstrap':number),builtin:true),[],Out),'/util':assertEqual(Out,[1::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).
+'/util':behavior(for(Given,Goal,Cmd)::'/imperative':command,!'should not execute anything if Goal does not hold', ('/imperative':execute(for([],builtin:fail,'/imperative':print('/imperative':const(1),'/bootstrap':number)),[],Out),'/util':assertEqual(Out,[],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/util':behavior('for2'(Given,Cmd,Goal)::'/imperative':command,!'should not execute anything if Goal does not hold', ('/imperative':execute('for2'([],'/imperative':print('/imperative':const(1),'/bootstrap':number),builtin:fail),[],Out),'/util':assertEqual(Out,[],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/bootstrap':signature(bind(Expr,T,V)::binding,[Expr::'/imperative':expr(T),T::'/bootstrap':type,V::T]).
 '/bootstrap':projection(bind(Expr,T,V)::binding,'/bootstrap':horiz(['/bootstrap':vis(V::T),'/bootstrap':label(! (::)),'/bootstrap':vis(T::'/bootstrap':type),'/bootstrap':label(! (=)),'/bootstrap':vis(Expr::'/imperative':expr(T))])).
@@ -18,3 +18,8 @@
 '/bootstrap':signature(evalBindings(Given,Sigma)::'/bootstrap':pred,[Given::'/bootstrap':list(binding),Sigma::'/imperative':state]).
 evalBindings([],_):-builtin:true.
 evalBindings([bind(Expr,T,V)|Rest],Sigma):-'/imperative':eval(Expr,Sigma,T,V),evalBindings(Rest,Sigma).
+'/bootstrap':signature(range(B,E)::'/bootstrap':set('/bootstrap':number),[B::'/bootstrap':number,E::'/bootstrap':number]).
+'/bootstrap':projection(range(B,E)::'/bootstrap':set('/bootstrap':number),'/bootstrap':horiz(['/bootstrap':brackets('/bootstrap':horiz(['/bootstrap':vis(B::'/bootstrap':number),'/bootstrap':label(!'..'),'/bootstrap':vis(E::'/bootstrap':number)]),91,93)])).
+'/bootstrap':setDef(range(B,E),'/bootstrap':union('/bootstrap':singleton(B),'/bootstrap':set(X, (builtin:greaterThen(E,B),builtin:succ(B,BPrime),'/bootstrap':member(X,range(BPrime,E),'/bootstrap':number)))),'/bootstrap':number).
+'/bootstrap':unitTest(builtin:findall(X,'/bootstrap':number,'/bootstrap':member(X,range(1,4),'/bootstrap':number),[1,2,3,4])).
+'/bootstrap':unitTest(('/imperative':execute('/imperative':block(['/imperative':read(X,'/bootstrap':number),'for2'([bind('/imperative':var(X),'/bootstrap':number,XPrime)],'/imperative':print('/imperative':const(Z),'/bootstrap':number),'/bootstrap':member(Z,'/bootstrap':intersect(range(0,100),'/bootstrap':set(Y,builtin:greaterThen(XPrime,Y))),'/bootstrap':number))]),[3::'/bootstrap':number],Result),'/util':assertEqual(Result,[0::'/bootstrap':number,1::'/bootstrap':number,2::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).

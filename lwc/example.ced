@@ -1,0 +1,4 @@
+'/bootstrap':defAtom(myProc::'/imperative':procName).
+'/imperative':procedure(myProc,annotation:parentheses(annotation:changeMode(['/imperative':typedVar(A,'/bootstrap':number),'/imperative':typedVar(B,'/bootstrap':number),'/imperative':typedVar(C,'/bootstrap':string),'/imperative':typedVar(D,'/bootstrap':string),'/imperative':typedVar(E,'/bootstrap':number)],'/bootstrap':vert)),'/imperative':block(['/imperative':print('/imperative':op(annotation:parentheses('/imperative':op('/imperative':var(A),'/Functional':numPlus,'/imperative':var(B))),'/Functional':times,'/imperative':var(E)),'/bootstrap':number),'/imperative':print('/imperative':op('/imperative':var(C),'/Functional':concat,'/imperative':var(D)),'/bootstrap':string)])).
+annotation:shrink('/bootstrap':signature(myConcept(A,B,C,D,E)::'/bootstrap':statement,[A::'/bootstrap':number,B::'/bootstrap':number,C::'/bootstrap':string,D::'/bootstrap':string,E::'/bootstrap':number])).
+myConcept(A,B,C,D,E).
