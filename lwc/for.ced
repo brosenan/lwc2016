@@ -3,8 +3,8 @@
 '/bootstrap':projection(for(Given,Goal,Cmd)::'/imperative':command,'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':label(!for),'/bootstrap':vis(Goal::'/bootstrap':pred),'/bootstrap':label(!given),'/bootstrap':vis(Given::'/bootstrap':list(binding))]),'/bootstrap':horiz(['/bootstrap':label(!'    '),'/bootstrap':vis(Cmd::'/imperative':command)])])).
 '/bootstrap':signature('for2'(Given,Cmd,Goal)::'/imperative':command,[Given::'/bootstrap':list(binding),Cmd::'/imperative':command,Goal::'/bootstrap':pred]).
 '/bootstrap':projection('for2'(Given,Cmd,Goal)::'/imperative':command,'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':label(!for),'/bootstrap':vis(Goal::'/bootstrap':pred),'/bootstrap':label(!given),'/bootstrap':vis(Given::'/bootstrap':list(binding))]),'/bootstrap':horiz(['/bootstrap':label(!'    '),'/bootstrap':vis(Cmd::'/imperative':command)])])).
-'/bootstrap':deprecated(for(Given,Goal,Cmd)::'/imperative':command).
-'/bootstrap':deprecationReplacement(for(Given,Goal,Cmd),'/imperative':command,'for2'(Given,Cmd,Goal)).
+'/bootstrap':deprecated('for2'(Given,Cmd,Goal)::'/imperative':command).
+'/bootstrap':deprecationReplacement('for2'(Given,Cmd,Goal),'/imperative':command,for(Given,Goal,Cmd)).
 '/util':behavior(for(Given,Goal,Cmd)::'/imperative':command,!'should execute Cmd if Goal holds', ('/imperative':execute(for([],builtin:true,'/imperative':print('/imperative':const(1),'/bootstrap':number)),[],Out),'/util':assertEqual(Out,[1::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/util':behavior('for2'(Given,Cmd,Goal)::'/imperative':command,!'should execute Cmd if Goal holds', ('/imperative':execute('for2'([],'/imperative':print('/imperative':const(1),'/bootstrap':number),builtin:true),[],Out),'/util':assertEqual(Out,[1::'/bootstrap':number],'/bootstrap':list('/bootstrap':typedTerm)))).
 '/util':behavior(for(Given,Goal,Cmd)::'/imperative':command,!'should not execute anything if Goal does not hold', ('/imperative':execute(for([],builtin:fail,'/imperative':print('/imperative':const(1),'/bootstrap':number)),[],Out),'/util':assertEqual(Out,[],'/bootstrap':list('/bootstrap':typedTerm)))).
